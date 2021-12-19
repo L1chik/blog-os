@@ -11,6 +11,8 @@ mod vga_buffer;
     #[no_mangle]
     pub extern "C" fn _start() -> ! {
         use core::fmt::Write;
+        // PRINTING HELLO WORLD PUSHING BYTES IN BUFFER
+
         // let vga_buffer = 0xb8000 as *mut u8;
         //
         // // for (i, &byte) in HELLO.iter().enumerate() {
@@ -31,13 +33,23 @@ mod vga_buffer;
 
         // vga_buffer::print_something();
 
-        vga_buffer::WRITER.lock().write_str("Hello again").unwrap();
-        write!(vga_buffer::WRITER.lock(), " , some numbers: {} {}", 42, 1.337).unwrap();
+
+        // HELLO WORLD WITH WRITER REALISATION
+
+        // vga_buffer::WRITER.lock().write_str("Hello again").unwrap();
+        // write!(vga_buffer::WRITER.lock(), " , some numbers: {} {}", 42, 1.337).unwrap();
+
+
+        // HELLO WORLD WITH MACROS REALISATION
+        println!("Hello World{}", "!");
+
+        panic!("Panice message");
 
         loop {}
     }
 
     #[panic_handler]
-    fn panic(_info: &PanicInfo) -> ! {
+    fn panic(info: &PanicInfo) -> ! {
+        println!("{}", info);
         loop {}
     }
